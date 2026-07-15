@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Home - TAJA KHABAR NEWS 24{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Breaking News Ticker -->
+    {% if breaking_news %}
+    <div class="breaking-news-section">
+        <div class="breaking-label">🔴 BREAKING NEWS</div>
+        <div class="breaking-ticker">
+            <div class="ticker-content">
+                {% for news in breaking_news %}
+                    <span class="ticker-item">{{ news.title }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="main-grid">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Featured News Section -->
+            {% if featured_news %}
+            <section class="featured-section">
+                <h2 class="section-title">Featured News</h2>
+                <div class="featured-grid">
+                    {% for news in featured_news[:3] %}
+                    <a href="{{ url_for('news_detail', news_id=news.id) }}" class="featured-card">
+                        {% if news.image %}
+                            <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="{{ news.title }}" loading="lazy">
+                        {% else %}
+                            <div class="no-image">No Image</div>
+                        {% endif %}
+                        <div class="featured-content">
+                            <span class="category-badge">{{ news.category_name }}</span>
+                            <h3>{{ news.title }}</h3>
+                            <p class="date">{{ news.created_at[:10] }}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                
+                {% if featured_news|length > 3 %}
+                <div class="featured-grid">
+                    {% for news in featured_news[3:] %}
+                    <a href="{{ url_for('news_detail', news_id=news.id) }}" class="featured-card">
+                        {% if news.image %}
+                            <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="{{ news.title }}" loading="lazy">
+                        {% else %}
+                            <div class="no-image">No Image</div>
+                        {% endif %}
+                        <div class="featured-content">
+                            <span class="category-badge">{{ news.category_name }}</span>
+                            <h3>{{ news.title }}</h3>
+                            <p class="date">{{ news.created_at[:10] }}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </section>
+            {% endif %}
+
+            <!-- Latest News Section -->
+            {% if latest_news %}
+            <section class="latest-section">
+                <h2 class="section-title">Latest News</h2>
+                <div class="news-list">
+                    {% for news in latest_news %}
+                    <article class="news-card">
+                        <div class="news-image">
+                            {% if news.image %}
+                                <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="{{ news.title }}" loading="lazy">
+                            {% else %}
+                                <div class="no-image">No Image</div>
+                            {% endif %}
+                        </div>
+                        <div class="news-content">
+                            <span class="category-badge">{{ news.category_name }}</span>
+                            <a href="{{ url_for('news_detail', news_id=news.id) }}"><h3>{{ news.title }}</h3></a>
+                            <p class="description">{{ news.description[:150] }}...</p>
+                            <div class="news-meta">
+                                <span class="author">By {{ news.author }}</span>
+                                <span class="date">{{ news.created_at[:10] }}</span>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Trending News -->
+            {% if trending_news %}
+            <div class="trending-box">
+                <h3 class="sidebar-title">Trending Now</h3>
+                <ul class="trending-list">
+                    {% for news in trending_news %}
+                    <li>
+                        <a href="{{ url_for('news_detail', news_id=news.id) }}">
+                            <span class="trending-number">{{ loop.index }}</span>
+                            <span class="trending-title">{{ news.title }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Advertisement -->
+            <div class="ad-box">
+                <div class="ad-placeholder">
+                    <p>Advertisement</p>
+                </div>
+            </div>
+
+            <!-- Popular Categories -->
+            <div class="categories-box">
+                <h3 class="sidebar-title">Categories</h3>
+                <ul class="category-list">
+                    <li><a href="{{ url_for('category', category_id=1) }}">Breaking News</a></li>
+                    <li><a href="{{ url_for('category', category_id=2) }}">National</a></li>
+                    <li><a href="{{ url_for('category', category_id=3) }}">International</a></li>
+                    <li><a href="{{ url_for('category', category_id=4) }}">Politics</a></li>
+                    <li><a href="{{ url_for('category', category_id=6) }}">Business</a></li>
+                    <li><a href="{{ url_for('category', category_id=7) }}">Technology</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

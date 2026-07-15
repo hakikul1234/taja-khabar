@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - TAJA KHABAR NEWS 24</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>TAJA KHABAR</h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item active">Dashboard</a>
+                <a href="{{ url_for('admin_add_news') }}" class="nav-item">Add News</a>
+                <a href="{{ url_for('admin_add_category') }}" class="nav-item">Add Category</a>
+                <a href="{{ url_for('home') }}" class="nav-item">View Website</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <p>Manage your news and categories</p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total News</h3>
+                    <p class="stat-number">{{ total_news }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Categories</h3>
+                    <p class="stat-number">{{ total_categories }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions">
+                        <a href="{{ url_for('admin_add_news') }}" class="btn-small">+ Add News</a>
+                        <a href="{{ url_for('admin_add_category') }}" class="btn-small">+ Add Category</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent News -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2>Recent News</h2>
+                    <a href="{{ url_for('admin_add_news') }}" class="btn-primary">Add New News</a>
+                </div>
+                
+                {% if recent_news %}
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Author</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for news in recent_news %}
+                            <tr>
+                                <td class="title-cell">
+                                    {% if news.image %}
+                                        <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="{{ news.title }}" class="thumb">
+                                    {% endif %}
+                                    {{ news.title }}
+                                </td>
+                                <td>{{ news.category_name }}</td>
+                                <td>{{ news.author }}</td>
+                                <td>{{ news.created_at[:10] }}</td>
+                                <td>
+                                    <div class="status-badges">
+                                        {% if news.is_breaking %}<span class="badge badge-breaking">Breaking</span>{% endif %}
+                                        {% if news.is_featured %}<span class="badge badge-featured">Featured</span>{% endif %}
+                                    </div>
+                                </td>
+                                <td class="actions-cell">
+                                    <a href="{{ url_for('admin_edit_news', news_id=news.id) }}" class="btn-edit">Edit</a>
+                                    <a href="{{ url_for('admin_delete_news', news_id=news.id) }}" class="btn-delete" onclick="return confirm('Are you sure?')">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="no-data">No news available. <a href="{{ url_for('admin_add_news') }}">Add your first news</a></p>
+                {% endif %}
+            </section>
+
+            <!-- Categories -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2>Categories</h2>
+                    <a href="{{ url_for('admin_add_category') }}" class="btn-primary">Add Category</a>
+                </div>
+
+                {% if categories %}
+                <div class="categories-list">
+                    {% for category in categories %}
+                    <div class="category-item">
+                        <span class="category-name">{{ category.name }}</span>
+                        <a href="{{ url_for('admin_delete_category', category_id=category.id) }}" class="btn-delete-small" onclick="return confirm('Are you sure? This will only delete if no news exist in this category.')">Delete</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="no-data">No categories available.</p>
+                {% endif %}
+            </section>
+        </main>
+    </div>
+</body>
+</html>

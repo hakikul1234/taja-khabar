@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }} - TAJA KHABAR NEWS 24{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{{ category.name }}</h1>
+    </div>
+
+    {% if news_list %}
+    <div class="news-grid">
+        {% for news in news_list %}
+        <article class="news-card">
+            <div class="news-image">
+                {% if news.image %}
+                    <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="{{ news.title }}" loading="lazy">
+                {% else %}
+                    <div class="no-image">No Image</div>
+                {% endif %}
+            </div>
+            <div class="news-content">
+                <span class="category-badge">{{ news.category_name }}</span>
+                <a href="{{ url_for('news_detail', news_id=news.id) }}"><h3>{{ news.title }}</h3></a>
+                <p class="description">{{ news.description[:200] }}...</p>
+                <div class="news-meta">
+                    <span class="author">By {{ news.author }}</span>
+                    <span class="date">{{ news.created_at[:10] }}</span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-news">
+        <p>No news available in this category.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit News - TAJA KHABAR NEWS 24</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>TAJA KHABAR</h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+                <a href="{{ url_for('admin_add_news') }}" class="nav-item">Add News</a>
+                <a href="{{ url_for('admin_add_category') }}" class="nav-item">Add Category</a>
+                <a href="{{ url_for('home') }}" class="nav-item">View Website</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Edit News</h1>
+                <a href="{{ url_for('admin_dashboard') }}" class="back-link">← Back to Dashboard</a>
+            </div>
+
+            <section class="admin-section">
+                <form method="POST" enctype="multipart/form-data" class="admin-form">
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" name="title" value="{{ news.title }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description *</label>
+                        <textarea id="description" name="description" rows="8" required>{{ news.description }}</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category_id">Category *</label>
+                            <select id="category_id" name="category_id" required>
+                                <option value="">Select a category</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}" {% if category.id == news.category_id %}selected{% endif %}>{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="author">Author Name *</label>
+                            <input type="text" id="author" name="author" value="{{ news.author }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">News Image</label>
+                        {% if news.image %}
+                        <div class="current-image">
+                            <p>Current Image:</p>
+                            <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="{{ news.title }}" class="preview-image">
+                        </div>
+                        {% endif %}
+                        <input type="file" id="image" name="image" accept="image/png,image/jpeg,image/gif">
+                        <small>Leave blank to keep current image. Supported formats: PNG, JPG, JPEG, GIF (Max 16MB)</small>
+                    </div>
+
+                    <div class="form-checkboxes">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="is_breaking" name="is_breaking" {% if news.is_breaking %}checked{% endif %}>
+                            <label for="is_breaking">Mark as Breaking News</label>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="is_featured" name="is_featured" {% if news.is_featured %}checked{% endif %}>
+                            <label for="is_featured">Mark as Featured News</label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Update News</button>
+                        <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

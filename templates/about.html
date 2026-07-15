@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - TAJA KHABAR NEWS 24{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-content">
+        <h1>About TAJA KHABAR NEWS 24</h1>
+        
+        <div class="about-content">
+            <h2>Our Mission</h2>
+            <p>
+                TAJA KHABAR NEWS 24 is committed to delivering the most up-to-date and reliable news 
+                to our readers. With our motto "Sach Sab Se Aage" (Truth Comes First), we strive to 
+                provide accurate, unbiased, and comprehensive news coverage across all major categories.
+            </p>
+
+            <h2>Our Vision</h2>
+            <p>
+                We believe in the power of journalism to inform, educate, and inspire positive change. 
+                Our team works tirelessly to bring you the stories that matter most, from breaking news 
+                to in-depth analysis of national and international events.
+            </p>
+
+            <h2>Our Coverage</h2>
+            <p>
+                We provide comprehensive news coverage in the following areas:
+            </p>
+            <ul class="coverage-list">
+                <li>Breaking News - Get the latest updates as they happen</li>
+                <li>National News - Stories from across the country</li>
+                <li>International News - Global events and happenings</li>
+                <li>Politics - Analysis of political developments</li>
+                <li>Crime - Crime reporting and justice news</li>
+                <li>Business - Economic news and market updates</li>
+                <li>Technology - Latest tech innovations and developments</li>
+                <li>Sports - Sports events and athlete news</li>
+                <li>Entertainment - Entertainment industry news</li>
+                <li>Education - Educational developments and updates</li>
+                <li>Health - Health and wellness news</li>
+            </ul>
+
+            <h2>Why Choose Us?</h2>
+            <ul class="features-list">
+                <li><strong>Real-time Updates:</strong> Get breaking news as soon as it happens</li>
+                <li><strong>Accurate Reporting:</strong> We prioritize accuracy and fact-checking</li>
+                <li><strong>Comprehensive Coverage:</strong> We cover all major news categories</li>
+                <li><strong>Expert Analysis:</strong> Our team provides expert insights and analysis</li>
+                <li><strong>Mobile-Friendly:</strong> Access news anytime, anywhere on any device</li>
+            </ul>
+
+            <h2>Contact Us</h2>
+            <p>
+                Have feedback or a tip? <a href="{{ url_for('contact') }}">Contact us</a> - we'd love to hear from you!
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

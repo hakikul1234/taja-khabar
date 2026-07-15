@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category - TAJA KHABAR NEWS 24</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>TAJA KHABAR</h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-item">Dashboard</a>
+                <a href="{{ url_for('admin_add_news') }}" class="nav-item">Add News</a>
+                <a href="{{ url_for('admin_add_category') }}" class="nav-item active">Add Category</a>
+                <a href="{{ url_for('home') }}" class="nav-item">View Website</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Add Category</h1>
+                <a href="{{ url_for('admin_dashboard') }}" class="back-link">← Back to Dashboard</a>
+            </div>
+
+            <section class="admin-section">
+                <form method="POST" class="admin-form">
+                    <div class="form-group">
+                        <label for="name">Category Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter category name">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Add Category</button>
+                        <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

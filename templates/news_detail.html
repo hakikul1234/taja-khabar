@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ news.title }} - TAJA KHABAR NEWS 24{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="news-detail">
+        <div class="news-main">
+            <article class="article-content">
+                <span class="category-badge-large">{{ news.category_name }}</span>
+                <h1 class="article-title">{{ news.title }}</h1>
+                
+                <div class="article-meta">
+                    <span class="author">By {{ news.author }}</span>
+                    <span class="date">{{ news.created_at }}</span>
+                </div>
+
+                {% if news.image %}
+                <div class="article-image">
+                    <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="{{ news.title }}">
+                </div>
+                {% endif %}
+
+                <div class="article-body">
+                    {{ news.description }}
+                </div>
+            </article>
+
+            <!-- Related News -->
+            {% if related_news %}
+            <div class="related-news">
+                <h2>Related News</h2>
+                <div class="related-grid">
+                    {% for item in related_news %}
+                    <a href="{{ url_for('news_detail', news_id=item.id) }}" class="related-card">
+                        {% if item.image %}
+                            <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.title }}" loading="lazy">
+                        {% else %}
+                            <div class="no-image">No Image</div>
+                        {% endif %}
+                        <h4>{{ item.title }}</h4>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Advertisement -->
+            <div class="ad-box">
+                <div class="ad-placeholder">
+                    <p>Advertisement</p>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="quick-links">
+                <h3 class="sidebar-title">Quick Links</h3>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

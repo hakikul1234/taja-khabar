@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TAJA KHABAR NEWS 24 - Sach Sab Se Aage{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="header-content">
+                    <div class="banner-section">
+            <img src="{{ url_for('static', filename='images/banner.jpeg') }}" alt="TAJA KHABAR NEWS 24 Banner" class="banner-image">
+        </div>
+                    <div class="logo-section">
+                        <h1 class="logo">TAJA KHABAR NEWS 24</h1>
+                        <p class="motto">Sach Sab Se Aage</p>
+                    </div>
+                    <div class="header-links">
+                        <a href="{{ url_for('about') }}">About Us</a>
+                        <a href="{{ url_for('contact') }}">Contact Us</a>
+                        <a href="{{ url_for('admin_dashboard') }}">Admin Panel</a>
+                        <div id="google_translate_element"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="{{ url_for('home') }}" class="nav-link">Home</a></li>
+                    <li><a href="{{ url_for('category', category_id=1) }}" class="nav-link">Breaking News</a></li>
+                    <li><a href="{{ url_for('category', category_id=2) }}" class="nav-link">National</a></li>
+                    <li><a href="{{ url_for('category', category_id=3) }}" class="nav-link">International</a></li>
+                    <li><a href="{{ url_for('category', category_id=4) }}" class="nav-link">Politics</a></li>
+                    <li><a href="{{ url_for('category', category_id=5) }}" class="nav-link">Crime</a></li>
+                    <li><a href="{{ url_for('category', category_id=6) }}" class="nav-link">Business</a></li>
+                    <li><a href="{{ url_for('category', category_id=7) }}" class="nav-link">Tech</a></li>
+                    <li><a href="{{ url_for('category', category_id=8) }}" class="nav-link">Sports</a></li>
+                    <li><a href="{{ url_for('category', category_id=9) }}" class="nav-link">Entertainment</a></li>
+                    <li><a href="{{ url_for('category', category_id=10) }}" class="nav-link">Education</a></li>
+                    <li><a href="{{ url_for('category', category_id=11) }}" class="nav-link">Health</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TAJA KHABAR NEWS 24</h3>
+                    <p>"Sach Sab Se Aage"</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                        <li><a href="{{ url_for('admin_dashboard') }}">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">f</a>
+                        <a href="#" title="Twitter">𝕏</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="YouTube">▶️</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TAJA KHABAR NEWS 24. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+    
+<script>
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
